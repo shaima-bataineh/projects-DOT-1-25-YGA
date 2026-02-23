@@ -1,66 +1,5 @@
 /* style for hight of pages*/
 
-.app-layout {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-.page-content {
-  flex: 1;
-}
-
-/* ===== NAVBAR ===== */
-.custom-navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: transparent;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-  z-index: 100;
-}
-
-.custom-navbar .nav-link {
-  color: #2aa01a;
-}
-.custom-navbar.scrolled .nav-link{
-  color: var(--primary);
-}
-.custom-navbar.scrolled {
-  background: #fff;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-}
-
-/* logo */
-.logo {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--primary);
-}
-
-.logo span {
-  color: var(--accent);
-}
-
-/* links */
-.nav-link {
-  font-weight: 500;
-  color:white;
-  padding: 8px 14px;
-  margin: 0px 6px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-.nav-link:hover {
-  background-color: rgba(47,191,113,0.15);
-  color:rgb(47, 191, 113);
-}
-.nav-link:hover {
-  transform: translateY(-1px);
-}
-.nav-link.active{
-  background-color: rgb(23, 145, 77);
-  color: #ffffff !important;
-}
 
 :root {
   --green-900: #0f2a22;
@@ -74,6 +13,116 @@
   --gray-100: #f5f7f6;
 
   --white: #ffffff;
+}
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.page-content {
+  flex: 1;
+}
+
+/* ===== NAVBAR BASE ===== */
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ===== HOME (TOP) ===== */
+.custom-navbar.home {
+  background: transparent;
+}
+
+/* ===== HOME (SCROLLED) ===== */
+.custom-navbar.home.scrolled {
+  background: rgba(11, 46, 38, 0.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== OTHER PAGES ===== */
+.custom-navbar.solid {
+  background: var(--brand-900);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== LOGO ===== */
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--gray-100);
+}
+
+.custom-navbar.home.scrolled .logo,
+.custom-navbar.solid .logo {
+  color: var(--white);
+}
+
+.logo span {
+  color: var(--brand-500);
+}
+
+/* ===== NAV LINKS ===== */
+.custom-navbar .nav-link {
+  color: var(--gray-900);
+  font-weight: 500;
+  padding: 8px 14px;
+  margin: 0 6px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+}
+
+.custom-navbar.home .nav-link {
+  color: var(--gray-900);
+}
+
+.custom-navbar.home.scrolled .nav-link,
+.custom-navbar.solid .nav-link {
+  color: #e2e8f0;
+}
+
+/* Hover */
+.custom-navbar .nav-link:hover {
+  background: rgba(20, 184, 166, 0.15);
+  color: var(--brand-500);
+}
+
+/* Active */
+.custom-navbar .nav-link.active {
+  background: var(--brand-700);
+  color: var(--white) !important;
+}
+
+/* ===== CTA BUTTON ===== */
+.cta-custom-btn {
+  background: linear-gradient(135deg, #217d72, #76bca5e9);
+  color: #fff;
+  padding: 15px 20px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 25px; /* شكل pill */
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 18px 40px rgba(20, 184, 166, 0.35);
+  transition: all 0.25s ease;
+}
+
+.cta-custom-btn:hover {
+  background: linear-gradient(135deg, #0f766e, #14b8a6);
+  transform: translateY(-2px);
+  box-shadow: 0 22px 45px rgba(20, 184, 166, 0.45);
 }
 
 

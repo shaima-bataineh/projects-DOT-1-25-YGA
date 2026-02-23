@@ -8,7 +8,7 @@ export default function Features() {
      title: "CRM Management",
      desc: "Organize all your client data in one place and manage contacts, notes, and interactions easily. Track customer history, improve team collaboration, and build stronger long-term relationships with your clients.",
      image: "/crmmanegment.svg",
-     link: "/crmmanagement",
+     link: "/services/crm-management",
     }, 
       
     {

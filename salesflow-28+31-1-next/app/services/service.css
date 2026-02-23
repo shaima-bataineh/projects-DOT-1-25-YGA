@@ -98,3 +98,23 @@
     transform: translateY(0);
   }
 }
+/* services.css */
+input {
+  padding: 8px;
+  margin-right: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 8px 15px;
+  border-radius: 5px;
+  background-color: #028484;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #026666;
+}

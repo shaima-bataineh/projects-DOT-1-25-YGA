@@ -1,51 +1,41 @@
-"use client";
-
-import "./Navbar.css";
+'use client';
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
 
   const isHome = pathname === "/";
   const isTransparentPage =
     pathname === "/about" || pathname === "/contact" || pathname === "/services";
 
-  const [scrolled, setScrolled] = useState(false);
+  // تحقق من حالة تسجيل الدخول من السيرفر (HttpOnly Cookie)
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // بدل null خلي false أولًا
 
- // useEffect(() => {
-    // scroll فقط للـ Home
-   // if (!isHome) {
-    //  setScrolled(false);
-    //  return;
-   // }
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then(res => res.json())
+      .then(data => setIsLoggedIn(data.loggedIn))
+      .catch(() => setIsLoggedIn(false));
+  }, []);
 
-    // const onScroll = () => {
-      // setScrolled(window.scrollY > 60);
-    // };
-
-    // window.addEventListener("scroll", onScroll, { passive: true });
-    // return () => window.removeEventListener("scroll", onScroll);
- // }, []);
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    setIsLoggedIn(false);
+    router.push("/"); // تحويل للصفحة الرئيسية بعد Logout
+  };
 
   return (
     <nav
-      className={`
-        navbar navbar-expand-lg
-        custom-navbar
+      className={`navbar navbar-expand-lg custom-navbar
         ${isHome || isTransparentPage ? "transparent" : "solid"}
-        ${isTransparentPage ? "static-transparent" : ""}
-        ${scrolled ? "scrolled" : ""}
-      `}
+        ${isTransparentPage ? "static-transparent" : ""}`}
     >
       <div className="container">
-        {/* Logo */}
-        <Link className="navbar-brand logo" href="/">
-          Sales<span>Flow</span>
-        </Link>
+        <Link className="navbar-brand logo" href="/">Sales<span>Flow</span></Link>
 
-        {/* Mobile Toggle */}
         <button
           className="navbar-toggler"
           type="button"
@@ -58,43 +48,35 @@ export default function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Links */}
         <div className="collapse navbar-collapse" id="mainNav">
           <ul className="navbar-nav ms-auto align-items-lg-center">
-            {[
-              { href: "/", label: "Home" },
+            {[{ href: "/", label: "Home" },
               { href: "/about", label: "About" },
               { href: "/services", label: "Services" },
-              { href: "/contact", label: "Contact" },
+              { href: "/contact", label: "Contact" }
             ].map((item) => (
               <li className="nav-item" key={item.href}>
                 <Link
                   href={item.href}
-                  className={`nav-link ${
-                    pathname === item.href ? "active" : ""
-                  }`}
+                  className={`nav-link ${pathname === item.href ? "active" : ""}`}
                 >
                   {item.label}
                 </Link>
               </li>
             ))}
 
-            <li className="nav-item ms-lg-4">
-              <Link
-                href="/login"
-                className={`nav-link ${
-                  pathname === "/login" ? "active" : ""
-                }`}
-              >
-                Log In
-              </Link>
-            </li>
-
-            <li className="nav-item ms-lg-3">
-              <a className="cta-btn" href="#">
-                Get Started
-              </a>
-            </li>
+            {/* Buttons حسب حالة تسجيل الدخول */}
+            {isLoggedIn ? (
+              <li className="nav-item ms-lg-4">
+                <button onClick={handleLogout} className="nav-link btn btn-link">
+                  Logout
+                </button>
+              </li>
+            ) : (
+              <li className="nav-item ms-lg-3">
+                <Link href="/get-started" className="cta-custom-btn">Get Started</Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
